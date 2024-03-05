@@ -1,0 +1,6 @@
+2024/03/05-10:11:34.645 3d03 Reusing MANIFEST /Users/brunoprates/Documents/codigos/bot+chat/zap-gpt/tokens/sessionName/Default/Local Storage/leveldb/MANIFEST-000001
+2024/03/05-10:11:34.650 3d03 Recovering log #4
+2024/03/05-10:11:34.651 3d03 Reusing old log /Users/brunoprates/Documents/codigos/bot+chat/zap-gpt/tokens/sessionName/Default/Local Storage/leveldb/000004.log 
+2024/03/05-11:30:36.360 3a03 Level-0 table #8: started
+2024/03/05-11:30:36.386 3a03 Level-0 table #8: 13265 bytes OK
+2024/03/05-11:30:36.432 3a03 Delete type=0 #4

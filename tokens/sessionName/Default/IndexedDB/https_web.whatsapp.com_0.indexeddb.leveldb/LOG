@@ -1,0 +1,22 @@
+2024/03/05-12:10:41.500 10203 Reusing MANIFEST /Users/brunoprates/Documents/codigos/bot+chat/zap-gpt/tokens/sessionName/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2024/03/05-12:10:41.501 10203 Recovering log #227
+2024/03/05-12:10:41.503 10203 Reusing old log /Users/brunoprates/Documents/codigos/bot+chat/zap-gpt/tokens/sessionName/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/000227.log 
+2024/03/05-12:10:51.970 f703 Level-0 table #232: started
+2024/03/05-12:10:51.996 f703 Level-0 table #232: 51007 bytes OK
+2024/03/05-12:10:52.035 f703 Delete type=0 #227
+2024/03/05-12:10:52.039 a607 Manual compaction at level-0 from '\x00e\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00f\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/03/05-12:10:53.078 8403 Compacting 1@1 + 1@2 files
+2024/03/05-12:10:53.132 8403 Generated table #233@1: 27007 keys, 1017455 bytes
+2024/03/05-12:10:53.132 8403 Compacted 1@1 + 1@2 files => 1017455 bytes
+2024/03/05-12:10:53.171 8403 compacted to: files[ 0 0 1 0 0 0 0 ]
+2024/03/05-12:10:53.171 8403 Delete type=2 #229
+2024/03/05-12:10:53.172 8403 Delete type=2 #232
+2024/03/05-13:36:37.655 8403 Level-0 table #235: started
+2024/03/05-13:36:37.700 8403 Level-0 table #235: 1263996 bytes OK
+2024/03/05-13:36:37.741 8403 Delete type=0 #231
+2024/03/05-13:37:23.543 8403 Compacting 1@1 + 1@2 files
+2024/03/05-13:37:23.670 8403 Generated table #236@1: 31597 keys, 1202178 bytes
+2024/03/05-13:37:23.670 8403 Compacted 1@1 + 1@2 files => 1202178 bytes
+2024/03/05-13:37:23.711 8403 compacted to: files[ 0 0 1 0 0 0 0 ]
+2024/03/05-13:37:23.711 8403 Delete type=2 #235
+2024/03/05-13:37:23.711 8403 Delete type=2 #233
