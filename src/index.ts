@@ -11,6 +11,7 @@ type AIOption = 'GPT' | 'GEMINI';
 const messageBufferPerChatId = new Map();
 const messageTimeouts = new Map();
 const AI_SELECTED: AIOption = (process.env.AI_SELECTED as AIOption) || 'GEMINI';
+const MAX_RETRIES = 3;
 
 if (AI_SELECTED === 'GEMINI' && !process.env.GEMINI_KEY) {
   throw Error(
@@ -61,12 +62,13 @@ async function start(client: wppconnect.Whatsapp): Promise<void> {
         }
 
         if (!messageBufferPerChatId.has(chatId)) {
-          messageBufferPerChatId.set(chatId, []);
+          messageBufferPerChatId.set(chatId, [message.body]);
+        } else {
+          messageBufferPerChatId.set(chatId, [
+            ...messageBufferPerChatId.get(chatId),
+            message.body,
+          ]);
         }
-        messageBufferPerChatId.set(chatId, [
-          ...messageBufferPerChatId.get(chatId),
-          message.body,
-        ]);
 
         if (messageTimeouts.has(chatId)) {
           clearTimeout(messageTimeouts.get(chatId));
@@ -76,24 +78,30 @@ async function start(client: wppconnect.Whatsapp): Promise<void> {
           chatId,
           setTimeout(() => {
             (async () => {
-              console.log(
-                'Gerando resposta para: ',
-                [...messageBufferPerChatId.get(chatId)].join(' \n ')
-              );
-              const currentMessage = [
-                ...messageBufferPerChatId.get(chatId),
-              ].join(' \n ');
-              const answer =
-                AI_SELECTED === 'GPT'
-                  ? await mainOpenAI({
-                      currentMessage,
-                      chatId,
-                    })
-                  : await mainGoogle({
+              const currentMessage = !messageBufferPerChatId.has(chatId)
+                ? message.body
+                : [...messageBufferPerChatId.get(chatId)].join(' \n ');
+              let answer = '';
+              for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+                try {
+                  if (AI_SELECTED === 'GPT') {
+                    answer = await mainOpenAI({
                       currentMessage,
                       chatId,
                     });
-              if (answer === '_fim') return;
+                  } else {
+                    answer = await mainGoogle({
+                      currentMessage,
+                      chatId,
+                    });
+                  }
+                  break;
+                } catch (error) {
+                  if (attempt === MAX_RETRIES) {
+                    throw error;
+                  }
+                }
+              }
               const messages = splitMessages(answer);
               console.log('Enviando mensagens...');
               await sendMessagesWithDelay({
@@ -104,7 +112,7 @@ async function start(client: wppconnect.Whatsapp): Promise<void> {
               messageBufferPerChatId.delete(chatId);
               messageTimeouts.delete(chatId);
             })();
-          }, 10000)
+          }, 60000)
         );
       }
     })();
